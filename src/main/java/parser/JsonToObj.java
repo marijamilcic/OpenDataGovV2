@@ -25,7 +25,7 @@ ObjectMapper mapper = new ObjectMapper();
 public void createJson(){
     try {
         //JSON from file to Object
-        Skole obj = mapper.readValue(new File("c:\\get.json"), Skole.class);
+        Config obj = mapper.readValue(new File("c:\\get.json"), Config.class);
         String jsonInString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
         
       

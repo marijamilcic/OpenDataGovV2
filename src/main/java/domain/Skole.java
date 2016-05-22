@@ -11,9 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -33,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Skole.findAll", query = "SELECT s FROM Skole s"),
     @NamedQuery(name = "Skole.findByListSkolaId", query = "SELECT s FROM Skole s WHERE s.listSkolaId = :listSkolaId"),
+    @NamedQuery(name = "Skole.findByListOpstinaId", query = "SELECT s FROM Skole s WHERE s.listOpstinaId = :listOpstinaId"),
     @NamedQuery(name = "Skole.findByListPostanskiBroj", query = "SELECT s FROM Skole s WHERE s.listPostanskiBroj = :listPostanskiBroj"),
     @NamedQuery(name = "Skole.findByListMesto", query = "SELECT s FROM Skole s WHERE s.listMesto = :listMesto"),
     @NamedQuery(name = "Skole.findByListAdresa", query = "SELECT s FROM Skole s WHERE s.listAdresa = :listAdresa"),
@@ -54,7 +53,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Skole.findByListNazivOpstina", query = "SELECT s FROM Skole s WHERE s.listNazivOpstina = :listNazivOpstina"),
     @NamedQuery(name = "Skole.findByListNazivOkruga", query = "SELECT s FROM Skole s WHERE s.listNazivOkruga = :listNazivOkruga"),
     @NamedQuery(name = "Skole.findByListNazivSu", query = "SELECT s FROM Skole s WHERE s.listNazivSu = :listNazivSu"),
-    @NamedQuery(name = "Skole.findByListVrsta", query = "SELECT s FROM Skole s WHERE s.listVrsta = :listVrsta")})
+    @NamedQuery(name = "Skole.findByListVrsta", query = "SELECT s FROM Skole s WHERE s.listVrsta = :listVrsta"),
+    @NamedQuery(name = "Skole.findByLat", query = "SELECT s FROM Skole s WHERE s.lat = :lat"),
+    @NamedQuery(name = "Skole.findByLng", query = "SELECT s FROM Skole s WHERE s.lng = :lng")})
 public class Skole implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,6 +64,8 @@ public class Skole implements Serializable {
     @NotNull
     @Column(name = "list_skola_id")
     private Integer listSkolaId;
+    @Column(name = "list_opstina_id")
+    private Integer listOpstinaId;
     @Column(name = "list_postanski_broj")
     private Integer listPostanskiBroj;
     @Size(max = 23)
@@ -128,9 +131,14 @@ public class Skole implements Serializable {
     @Size(max = 31)
     @Column(name = "list_vrsta")
     private String listVrsta;
-    @JoinColumn(name = "list_opstina_id", referencedColumnName = "\u0418\u0414 \u041e\u043f\u0448\u0442\u0438\u043d\u0430")
-    @ManyToOne
-    private Opstine listOpstinaId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "lat")
+    private double lat;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "lng")
+    private double lng;
 
     public Skole() {
     }
@@ -139,12 +147,26 @@ public class Skole implements Serializable {
         this.listSkolaId = listSkolaId;
     }
 
+    public Skole(Integer listSkolaId, double lat, double lng) {
+        this.listSkolaId = listSkolaId;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
     public Integer getListSkolaId() {
         return listSkolaId;
     }
 
     public void setListSkolaId(Integer listSkolaId) {
         this.listSkolaId = listSkolaId;
+    }
+
+    public Integer getListOpstinaId() {
+        return listOpstinaId;
+    }
+
+    public void setListOpstinaId(Integer listOpstinaId) {
+        this.listOpstinaId = listOpstinaId;
     }
 
     public Integer getListPostanskiBroj() {
@@ -331,12 +353,20 @@ public class Skole implements Serializable {
         this.listVrsta = listVrsta;
     }
 
-    public Opstine getListOpstinaId() {
-        return listOpstinaId;
+    public double getLat() {
+        return lat;
     }
 
-    public void setListOpstinaId(Opstine listOpstinaId) {
-        this.listOpstinaId = listOpstinaId;
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
     @Override
