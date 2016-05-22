@@ -27,42 +27,6 @@ public class RecommendationAlgorithm {
         });
         return skole;
     }
-    public Podrucjerada Licnost(Licnost licnost, Podrucjerada profil) {
-        double snalazenjeRecima;
-        double snalazenjeBrojevima;
-        double shvatanjeMasina;
-        double shvatanjeProstora;
-        double pokretnostRukuPrstiju ;
-        double snalazenjeSljudima;
-        
-        double licnaIDrustvenabrigaOljudima;
-        double radSaBiljkamaIZivotinjama;
-        double tehnika;
-        double odbranaBezbednostZastita;
-        double BiznisPoslovneUsluge;
-        double KulturaUmetnostMediji;
-        double tehnologija;
-        double zanati;
-        
-        
-
-    
-        snalazenjeRecima = licnost.getSnalazenjeRecima();
-        snalazenjeBrojevima = licnost.getSnalazenjeBrojevima();
-        shvatanjeMasina = licnost.getShvatanjeMasina();
-        shvatanjeProstora = licnost.getShvatanjeOdnosaUProstoru();
-        pokretnostRukuPrstiju = licnost.getSpretnostRukuPrstiju();
-        snalazenjeSljudima = licnost.getSnalazenjeSaLjudima();
-               
-        
-        if(snalazenjeRecima < 3 && shvatanjeProstora >3 && shvatanjeMasina >3 && pokretnostRukuPrstiju >2 && snalazenjeSljudima <4) {
-                    return Podrucjerada.podrucje(3);
-        }else if(snalazenjeRecima > 2 && pokretnostRukuPrstiju > 2 && snalazenjeSljudima > 3 && snalazenjeBrojevima >2 && shvatanjeProstora <3){
-                    return Podrucjerada.podrucje(15);
-        }else {
-                    return Podrucjerada.podrucje(9);
-        }
-    }
     
 }
     
